@@ -1,0 +1,98 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml v0.4.
+version: "v0.4"
+
+project:
+  name: "Erdős Problem 704: cube colouring bound for the unit distance graph"
+  description: >-
+    Lean 4 / Mathlib proof that the unit distance graph on R^n is k-colourable for some k
+    with k <= (2 + sqrt n)^n, by colouring R^n with the residues of the cube indices floor(t * x_i)
+    modulo t + 1, where t = floor(sqrt n) + 1. In particular its chromatic number is finite.
+  authors:
+    - "Claude (Anthropic)"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Doug1990 (GitHub)"
+
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C15", "52C10"]
+
+sources:
+  - title: "Erdős Problem 704: chromatic number of the unit distance graph in R^n"
+    type: "web post"
+    id: "https://www.erdosproblems.com/704"
+    location: "https://www.erdosproblems.com/704"
+    relationship: "formalizes"
+    note: "The cube colouring bound is the classical trivial upper bound stated on the problem page."
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "formal-conjectures: FormalConjectures/ErdosProblems/704.lean"
+    type: "formalization"
+    id: "https://github.com/google-deepmind/formal-conjectures"
+    location: "https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/704.lean"
+    relationship: "background"
+    note: "Source of the formal statement erdos_704.variants.cube_colouring and of the definition of unitDistanceGraph, copied verbatim into Challenge.lean."
+    license: "Apache-2.0"
+    author_endorsement: "not-contacted"
+
+related_formalizations: []
+
+status:
+  scope: >-
+    The statement of erdos_704.variants.cube_colouring from formal-conjectures is proved in full:
+    for every n there is k with the unit distance graph on R^n k-colourable and k <= (2 + sqrt n)^n.
+    The definition of the graph is the one from formal-conjectures, copied verbatim. Nothing is
+    weakened or omitted. This is a classical textbook bound, not a new result.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "autonomous"
+      models: ["Claude Opus (Anthropic), selected with the Claude Code alias 'opus'"]
+      framework: "Claude Code, unattended `claude -p` loop on a local machine"
+      tool_setup: >-
+        An unattended agent with read access to a formal-conjectures checkout and a tool that
+        compiles a single Lean file; no web access. Accepted results were then re-checked by a
+        separate verification script (static scan, compilation, axiom audit of every declaration,
+        comparison of the statement with the formal-conjectures source).
+      cost:
+        wall_time: "A few minutes of agent time (two compile attempts); the original proof was produced on 2026-10-29."
+        spend_usd: "subscription-based"
+        hardware: "local laptop (Ryzen 7 7840HS, 15 GB RAM)"
+      prompting_notes: >-
+        The agent was asked to prove statements from formal-conjectures without changing them and
+        to sketch the argument before compiling. The ported module-system version in this
+        repository was prepared by Claude Code with the same proof text.
+  spend_usd: "subscription-based"
+  notes: >-
+    No human wrote or edited the proof. A human (the maintainer) supervised the workflow, chose
+    which results to submit, and did not review the proof line by line.
+
+fidelity:
+  divergences: >-
+    None known. The proof was originally checked against Lean v4.33.1 / Mathlib v4.33.1 and has
+    been ported to the module system and to Lean v4.35.0-rc2 for this submission. The statement
+    and definition are textually identical to those in formal-conjectures apart from the
+    namespace (Erdos704Cube instead of Erdos704).
+
+review:
+  status: "self-assessed (automated checks only)"
+  reviewers:
+    - "none"
+  notes: >-
+    The statement was compared with the formal-conjectures source by an automated script and by
+    reading. No independent human review of the proof or the statement has been done.
+
+alignment:
+  namespace: "Erdos704Cube"
+  statements:
+    - source: "Erdős Problem 704, trivial cube colouring bound chi(G_n) <= (2 + sqrt n)^n"
+      lean: "Erdos704Cube.cube_colouring"
+      module: "Solution"
+      status: "proved"
+      note: "Same statement as FormalConjectures.Erdos704.erdos_704.variants.cube_colouring."
+
+acknowledgements: "Mathlib, the Lean 4 community, and the formal-conjectures project (Google DeepMind), whose statement and definition this submission reuses."

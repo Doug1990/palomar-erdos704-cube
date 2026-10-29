@@ -1,0 +1,25 @@
+import FormalConjectures.ErdosProblems.«704»
+
+namespace Check
+
+def unitDistanceGraph (n : ℕ) : SimpleGraph (EuclideanSpace ℝ (Fin n)) where
+  Adj x y := dist x y = 1
+  symm.symm x y := by simp [dist_comm]
+
+theorem cube_colouring :
+    ∀ n : ℕ, ∃ k : ℕ, (unitDistanceGraph n).Colorable k ∧
+      (k : ℝ) ≤ (2 + Real.sqrt n) ^ n := by
+  sorry
+
+end Check
+
+-- the definition is the same graph (defeq by unfolding)
+example : Check.unitDistanceGraph = Erdos704.unitDistanceGraph := rfl
+-- statement of Challenge.lean against the FC statement, both directions
+example : ∀ n : ℕ, ∃ k : ℕ, (Check.unitDistanceGraph n).Colorable k ∧
+      (k : ℝ) ≤ (2 + Real.sqrt n) ^ n := Erdos704.erdos_704.variants.cube_colouring
+example : ∀ n : ℕ, ∃ k : ℕ, (Erdos704.unitDistanceGraph n).Colorable k ∧
+      (k : ℝ) ≤ (2 + Real.sqrt n) ^ n := Check.cube_colouring
+-- exact equality of the two propositions
+example : (∀ n : ℕ, ∃ k : ℕ, (Check.unitDistanceGraph n).Colorable k ∧ (k : ℝ) ≤ (2 + Real.sqrt n) ^ n) =
+    (∀ n : ℕ, ∃ k : ℕ, (Erdos704.unitDistanceGraph n).Colorable k ∧ (k : ℝ) ≤ (2 + Real.sqrt n) ^ n) := rfl
