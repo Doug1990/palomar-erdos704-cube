@@ -31,7 +31,7 @@ lake build
 
 ## Submission
 
-Submitted to Palomar through the [submission form](https://submit.palomar-registry.org/)
+To be submitted to Palomar through the [submission form](https://submit.palomar-registry.org/)
 with the full commit SHA of the snapshot.
 
 ## License
