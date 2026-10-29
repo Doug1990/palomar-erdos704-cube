@@ -37,3 +37,9 @@ with the full commit SHA of the snapshot.
 ## License
 
 Apache-2.0, see `LICENSE`. This repository started from the Palomar submission template.
+
+## Notes on CI
+
+The CI runs the template's metadata, build and Comparator checks. The template's optional
+doc-gen4 job (`docbuild/`) is not run here: it failed in CI for a reason not investigated, and
+Palomar does not require it.
